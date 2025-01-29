@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submitted Registration Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .data-row {
+            margin-bottom: 10px;
+        }
+        .data-row strong {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Submitted Registration Details</h2>
+        <div id="data-container"></div>
+    </div>
+
+    <script>
+        // Function to display submitted data
+        function displayData() {
+            const dataContainer = document.getElementById('data-container');
+
+            // Define the keys to look for in sessionStorage
+            const keys = [
+                'first-name', 'last-name', 'email', 'phone',
+                'gender', 'dob', 'course', 'address', 'agree'
+            ];
+
+            // Loop through each key and display its value
+            keys.forEach(key => {
+                const value = sessionStorage.getItem(key);
+                if (value) {
+                    const row = document.createElement('div');
+                    row.classList.add('data-row');
+                    // Clean up the key names for display
+                    const cleanKey = key.replace(/-/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
+                    row.innerHTML = `<strong>${cleanKey}:</strong> ${value}`;
+                    dataContainer.appendChild(row);
+                }
+            });
+        }
+
+        // Call displayData function when the page is loaded
+        window.onload = displayData;
+    </script>
+</body>
+</html>
